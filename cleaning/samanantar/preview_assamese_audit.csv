@@ -1,0 +1,31 @@
+preview_row_id,reason_code,audit_note
+2,semantic_misalignment,Different topic/reference
+3,semantic_misalignment,Different claim
+21,semantic_misalignment,Panic vs flood-state claim
+24,entity_mismatch,Chief minister vs prime minister
+26,entity_date_mismatch,Different person and year
+28,semantic_misalignment,Unrelated question
+29,semantic_misalignment,Unrelated sentence
+30,polarity_contradiction,Out of danger vs injured
+31,semantic_misalignment,Different question
+32,semantic_misalignment,All well vs evacuation
+35,object_mismatch,Grandson vs hobby
+37,semantic_misalignment,Different passage
+38,semantic_misalignment,Different question
+40,agent_action_mismatch,Why I acted vs why someone acted on me
+43,semantic_misalignment,Marriage question vs narrative
+49,semantic_misalignment,Question vs unrelated answer
+52,intent_mismatch,Teaching vs conversion
+53,semantic_misalignment,Needs vs appreciation
+58,semantic_misalignment,Reasoning method vs hellfire
+63,polarity_contradiction,No fear vs severity warning
+69,semantic_misalignment,Spiritual achievement vs law
+72,semantic_misalignment,Alertness vs qualities question
+73,semantic_misalignment,Love-neighbor reasoning vs preaching hours
+76,semantic_misalignment,Family concerns vs get-rich schemes
+78,semantic_misalignment,Recounting experience vs religious leaders
+83,sentiment_contradiction,Happy vs ashamed
+88,semantic_misalignment,Land transfer vs road/cabinet item
+90,semantic_misalignment,Present time vs public outreach
+93,semantic_misalignment,Daily bread vs translated Bible
+99,semantic_misalignment,Substance-abuse outcome omitted/replaced

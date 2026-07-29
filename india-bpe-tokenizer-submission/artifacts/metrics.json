@@ -1,0 +1,824 @@
+{
+  "generated_at_utc": "2026-07-17T23:51:50Z",
+  "methodology": {
+    "tokenizer": "SentencePiece BPE, one shared model",
+    "vocab_size": 10000,
+    "normalization": "SentencePiece nmt_nfkc; source snapshots NFC",
+    "word_metric": "count of Unicode non-whitespace spans (regex \\S+)",
+    "ratio": "SentencePiece encoded piece count / non-whitespace word count",
+    "special_tokens": 4,
+    "selection": "deterministic candidate search; models with English X > 1.2 are rejected, then compliant models are ranked by minimum ratio spread",
+    "training_weights": {
+      "English": 12.0,
+      "Hindi": 0.6,
+      "Telugu": 1.3,
+      "Marathi": 1.0
+    }
+  },
+  "sources": {
+    "English": {
+      "code": "en",
+      "title": "India",
+      "url": "https://en.wikipedia.org/wiki/India",
+      "file": "data/en_india.txt",
+      "sha256": "a33d7f4745ec61b30b53dcfba972f6f907b5861f4f48637a95a4ee625c165585"
+    },
+    "Hindi": {
+      "code": "hi",
+      "title": "भारत",
+      "url": "https://hi.wikipedia.org/wiki/भारत",
+      "file": "data/hi_india.txt",
+      "sha256": "e1b42678ae15b342eb68770f16e7e7516d043ffa94ed177d24b1982dd92b5b61"
+    },
+    "Telugu": {
+      "code": "te",
+      "title": "భారతదేశం",
+      "url": "https://te.wikipedia.org/wiki/భారతదేశం",
+      "file": "data/te_india.txt",
+      "sha256": "095462f4389610065f28713ae0e6032d6320a069df7d34efea7deeb685610507"
+    },
+    "Marathi": {
+      "code": "mr",
+      "title": "भारत",
+      "url": "https://mr.wikipedia.org/wiki/भारत",
+      "file": "data/mr_india.txt",
+      "sha256": "67baa17f673fa1d4573825e6c1d970f52359636ae1c8590c911304934f8731e2"
+    }
+  },
+  "languages": {
+    "English": {
+      "words": 9933,
+      "tokens": 11762,
+      "ratio": 1.1841336957616027,
+      "chars": 64152,
+      "unique_words": 3731
+    },
+    "Hindi": {
+      "words": 7972,
+      "tokens": 14896,
+      "ratio": 1.8685398896136478,
+      "chars": 43189,
+      "unique_words": 2427
+    },
+    "Telugu": {
+      "words": 2320,
+      "tokens": 4931,
+      "ratio": 2.1254310344827587,
+      "chars": 18770,
+      "unique_words": 1569
+    },
+    "Marathi": {
+      "words": 4529,
+      "tokens": 9284,
+      "ratio": 2.049900640317951,
+      "chars": 31791,
+      "unique_words": 2358
+    }
+  },
+  "ranking": [
+    {
+      "language": "Telugu",
+      "ratio": 2.1254310344827587
+    },
+    {
+      "language": "Marathi",
+      "ratio": 2.049900640317951
+    },
+    {
+      "language": "Hindi",
+      "ratio": 1.8685398896136478
+    },
+    {
+      "language": "English",
+      "ratio": 1.1841336957616027
+    }
+  ],
+  "max_ratio": 2.1254310344827587,
+  "min_ratio": 1.1841336957616027,
+  "spread": 0.9412973387211561,
+  "self_score": 1062.3635687301498,
+  "english_constraint_pass": true,
+  "vocab_size_exact": true,
+  "trials": [
+    {
+      "weights": {
+        "English": 4.0,
+        "Hindi": 1.0,
+        "Telugu": 1.0,
+        "Marathi": 1.0
+      },
+      "ratios": {
+        "English": 1.480217456961643,
+        "Hindi": 1.6138986452584043,
+        "Telugu": 1.2616379310344827,
+        "Marathi": 1.7897990726429676
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 6.0,
+        "Hindi": 1.0,
+        "Telugu": 1.0,
+        "Marathi": 1.0
+      },
+      "ratios": {
+        "English": 1.194905869324474,
+        "Hindi": 1.7242849974912193,
+        "Telugu": 2.1698275862068965,
+        "Marathi": 2.040627069993376
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 8.0,
+        "Hindi": 1.0,
+        "Telugu": 1.0,
+        "Marathi": 1.0
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.7732062217762168,
+        "Telugu": 2.169396551724138,
+        "Marathi": 2.0624862000441597
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 10.0,
+        "Hindi": 1.0,
+        "Telugu": 1.0,
+        "Marathi": 1.0
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.7732062217762168,
+        "Telugu": 2.169396551724138,
+        "Marathi": 2.0624862000441597
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 12.0,
+        "Hindi": 1.0,
+        "Telugu": 1.0,
+        "Marathi": 1.0
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.7732062217762168,
+        "Telugu": 2.169396551724138,
+        "Marathi": 2.0624862000441597
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 8.0,
+        "Hindi": 1.4,
+        "Telugu": 1.4,
+        "Marathi": 1.4
+      },
+      "ratios": {
+        "English": 1.2059800664451827,
+        "Hindi": 1.7012042147516306,
+        "Telugu": 2.1698275862068965,
+        "Marathi": 1.9951424155442703
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 10.0,
+        "Hindi": 1.5,
+        "Telugu": 2.0,
+        "Marathi": 1.5
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.7723281485198195,
+        "Telugu": 2.1668103448275864,
+        "Marathi": 2.0664605873261204
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 12.0,
+        "Hindi": 2.0,
+        "Telugu": 2.0,
+        "Marathi": 2.0
+      },
+      "ratios": {
+        "English": 1.1987315010570825,
+        "Hindi": 1.7103612644254893,
+        "Telugu": 2.1698275862068965,
+        "Marathi": 2.028703908147494
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 10.0,
+        "Hindi": 1.0,
+        "Telugu": 2.5,
+        "Marathi": 1.5
+      },
+      "ratios": {
+        "English": 1.3580992650760093,
+        "Hindi": 1.9359006522829905,
+        "Telugu": 1.2616379310344827,
+        "Marathi": 2.1967321704570546
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 10.0,
+        "Hindi": 1.5,
+        "Telugu": 1.5,
+        "Marathi": 2.5
+      },
+      "ratios": {
+        "English": 1.2382965871337965,
+        "Hindi": 1.7555193176116408,
+        "Telugu": 2.1698275862068965,
+        "Marathi": 1.812099801280636
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 6.0,
+        "Hindi": 1.0,
+        "Telugu": 0.8,
+        "Marathi": 1.7
+      },
+      "ratios": {
+        "English": 1.254605859257022,
+        "Hindi": 1.6860260913196186,
+        "Telugu": 2.1702586206896552,
+        "Marathi": 1.7847206888937956
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 5.0,
+        "Hindi": 0.8,
+        "Telugu": 0.6,
+        "Marathi": 1.7
+      },
+      "ratios": {
+        "English": 1.254001812141347,
+        "Hindi": 1.690667335674862,
+        "Telugu": 2.1698275862068965,
+        "Marathi": 1.783395893133142
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 12.0,
+        "Hindi": 2.2,
+        "Telugu": 1.3,
+        "Marathi": 1.3
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.6475163070747616,
+        "Telugu": 2.2426724137931036,
+        "Marathi": 2.159858688452197
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 15.0,
+        "Hindi": 1.7,
+        "Telugu": 0.6,
+        "Marathi": 0.6
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.5367536377320623,
+        "Telugu": 2.5008620689655174,
+        "Marathi": 2.1483771251931993
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 8.0,
+        "Hindi": 2.2,
+        "Telugu": 2.2,
+        "Marathi": 1.0
+      },
+      "ratios": {
+        "English": 1.4273633343400784,
+        "Hindi": 1.55431510286001,
+        "Telugu": 1.2616379310344827,
+        "Marathi": 2.1644954736144846
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 6.0,
+        "Hindi": 1.3,
+        "Telugu": 1.7,
+        "Marathi": 0.8
+      },
+      "ratios": {
+        "English": 1.4051142655793818,
+        "Hindi": 1.642624184646262,
+        "Telugu": 1.2616379310344827,
+        "Marathi": 2.158754691984986
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 15.0,
+        "Hindi": 1.3,
+        "Telugu": 0.8,
+        "Marathi": 2.2
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.7560210737581536,
+        "Telugu": 2.6,
+        "Marathi": 1.82910134687569
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 12.0,
+        "Hindi": 0.6,
+        "Telugu": 1.3,
+        "Marathi": 1.0
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.8685398896136478,
+        "Telugu": 2.1254310344827587,
+        "Marathi": 2.049900640317951
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 10.0,
+        "Hindi": 0.8,
+        "Telugu": 3.0,
+        "Marathi": 2.2
+      },
+      "ratios": {
+        "English": 1.3818584516258934,
+        "Hindi": 1.9752885097842448,
+        "Telugu": 1.2616379310344827,
+        "Marathi": 2.015455950540958
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 5.0,
+        "Hindi": 1.7,
+        "Telugu": 0.6,
+        "Marathi": 0.8
+      },
+      "ratios": {
+        "English": 1.2477599919460385,
+        "Hindi": 1.5284746613146012,
+        "Telugu": 2.1702586206896552,
+        "Marathi": 1.9933760211967322
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 6.0,
+        "Hindi": 1.3,
+        "Telugu": 1.0,
+        "Marathi": 1.3
+      },
+      "ratios": {
+        "English": 1.2281284606866003,
+        "Hindi": 1.6147767185148019,
+        "Telugu": 2.1668103448275864,
+        "Marathi": 1.9735040847869287
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 8.0,
+        "Hindi": 1.0,
+        "Telugu": 1.0,
+        "Marathi": 1.3
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.793652784746613,
+        "Telugu": 2.1702586206896552,
+        "Marathi": 2.0421726650474716
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 6.0,
+        "Hindi": 1.0,
+        "Telugu": 0.8,
+        "Marathi": 0.8
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.710235825388861,
+        "Telugu": 2.1702586206896552,
+        "Marathi": 2.1291675866637227
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 8.0,
+        "Hindi": 0.8,
+        "Telugu": 0.6,
+        "Marathi": 2.2
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.7959106874059207,
+        "Telugu": 2.5995689655172414,
+        "Marathi": 1.7999558401413116
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 8.0,
+        "Hindi": 3.0,
+        "Telugu": 1.7,
+        "Marathi": 0.8
+      },
+      "ratios": {
+        "English": 1.2125239101983287,
+        "Hindi": 1.5342448569994982,
+        "Telugu": 2.1668103448275864,
+        "Marathi": 2.2629719584897328
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 8.0,
+        "Hindi": 1.3,
+        "Telugu": 0.6,
+        "Marathi": 1.3
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.6156547917711992,
+        "Telugu": 2.5991379310344827,
+        "Marathi": 1.943254581585339
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 4.0,
+        "Hindi": 0.8,
+        "Telugu": 2.2,
+        "Marathi": 0.6
+      },
+      "ratios": {
+        "English": 1.4042081949058693,
+        "Hindi": 1.682513798294029,
+        "Telugu": 1.2616379310344827,
+        "Marathi": 2.112386840362111
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 15.0,
+        "Hindi": 1.3,
+        "Telugu": 1.0,
+        "Marathi": 1.7
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.7552684395383844,
+        "Telugu": 2.282758620689655,
+        "Marathi": 2.000220799293442
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 12.0,
+        "Hindi": 1.0,
+        "Telugu": 0.8,
+        "Marathi": 2.2
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.794781736076267,
+        "Telugu": 2.5995689655172414,
+        "Marathi": 1.8048134245970413
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 15.0,
+        "Hindi": 2.2,
+        "Telugu": 1.0,
+        "Marathi": 0.8
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.6223030607124937,
+        "Telugu": 2.169396551724138,
+        "Marathi": 2.2956502539191876
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 15.0,
+        "Hindi": 0.8,
+        "Telugu": 1.3,
+        "Marathi": 0.8
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.7788509784244857,
+        "Telugu": 2.095689655172414,
+        "Marathi": 2.1766394347538087
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 6.0,
+        "Hindi": 1.3,
+        "Telugu": 2.2,
+        "Marathi": 0.6
+      },
+      "ratios": {
+        "English": 1.3900130876875063,
+        "Hindi": 1.6435022579026592,
+        "Telugu": 1.2616379310344827,
+        "Marathi": 2.3013910355486864
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 10.0,
+        "Hindi": 0.6,
+        "Telugu": 0.8,
+        "Marathi": 2.2
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.8842197691921727,
+        "Telugu": 2.505603448275862,
+        "Marathi": 1.8101126076396556
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 12.0,
+        "Hindi": 1.3,
+        "Telugu": 1.0,
+        "Marathi": 3.0
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.794781736076267,
+        "Telugu": 2.5995689655172414,
+        "Marathi": 1.8048134245970413
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 5.0,
+        "Hindi": 0.8,
+        "Telugu": 0.6,
+        "Marathi": 1.7
+      },
+      "ratios": {
+        "English": 1.254001812141347,
+        "Hindi": 1.690667335674862,
+        "Telugu": 2.1698275862068965,
+        "Marathi": 1.783395893133142
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 4.0,
+        "Hindi": 2.2,
+        "Telugu": 1.3,
+        "Marathi": 0.6
+      },
+      "ratios": {
+        "English": 1.5144467935165609,
+        "Hindi": 1.3709232313095836,
+        "Telugu": 1.2616379310344827,
+        "Marathi": 2.070876573194966
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 5.0,
+        "Hindi": 0.6,
+        "Telugu": 1.7,
+        "Marathi": 0.8
+      },
+      "ratios": {
+        "English": 1.3891070170139939,
+        "Hindi": 1.840316106372303,
+        "Telugu": 1.2616379310344827,
+        "Marathi": 2.0501214396113934
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 10.0,
+        "Hindi": 0.8,
+        "Telugu": 3.0,
+        "Marathi": 1.7
+      },
+      "ratios": {
+        "English": 1.3700795328702307,
+        "Hindi": 2.0027596588058203,
+        "Telugu": 1.2616379310344827,
+        "Marathi": 2.072201368955619
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 8.0,
+        "Hindi": 0.8,
+        "Telugu": 1.7,
+        "Marathi": 1.7
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.847215253386854,
+        "Telugu": 2.1668103448275864,
+        "Marathi": 2.0052991830426143
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 12.0,
+        "Hindi": 1.7,
+        "Telugu": 3.0,
+        "Marathi": 1.7
+      },
+      "ratios": {
+        "English": 1.3782341689318434,
+        "Hindi": 1.7801053687907678,
+        "Telugu": 1.2616379310344827,
+        "Marathi": 2.180393022742327
+      },
+      "objective": true
+    },
+    {
+      "weights": {
+        "English": 10.0,
+        "Hindi": 1.0,
+        "Telugu": 1.7,
+        "Marathi": 1.0
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.83705469141997,
+        "Telugu": 2.054741379310345,
+        "Marathi": 2.1898873923603444
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 15.0,
+        "Hindi": 3.0,
+        "Telugu": 0.6,
+        "Marathi": 2.2
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.5344957350727546,
+        "Telugu": 2.9120689655172414,
+        "Marathi": 1.9302274232722456
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 10.0,
+        "Hindi": 1.7,
+        "Telugu": 0.6,
+        "Marathi": 1.7
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.615529352734571,
+        "Telugu": 2.6,
+        "Marathi": 1.9454625745197616
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 10.0,
+        "Hindi": 0.8,
+        "Telugu": 0.6,
+        "Marathi": 1.3
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.7560210737581536,
+        "Telugu": 2.6,
+        "Marathi": 1.82910134687569
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 12.0,
+        "Hindi": 1.3,
+        "Telugu": 2.2,
+        "Marathi": 1.7
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.800426492724536,
+        "Telugu": 2.1668103448275864,
+        "Marathi": 2.0419518657540294
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 15.0,
+        "Hindi": 2.2,
+        "Telugu": 1.0,
+        "Marathi": 3.0
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.7068489713998996,
+        "Telugu": 2.7512931034482757,
+        "Marathi": 1.8092294104658866
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 15.0,
+        "Hindi": 1.3,
+        "Telugu": 0.6,
+        "Marathi": 0.6
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.637104867034621,
+        "Telugu": 2.25,
+        "Marathi": 2.168249061603003
+      },
+      "objective": false
+    },
+    {
+      "weights": {
+        "English": 15.0,
+        "Hindi": 1.3,
+        "Telugu": 1.0,
+        "Marathi": 2.2
+      },
+      "ratios": {
+        "English": 1.1841336957616027,
+        "Hindi": 1.7560210737581536,
+        "Telugu": 2.6,
+        "Marathi": 1.82910134687569
+      },
+      "objective": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "v5-p7-transition-ablation"
+version = "0.2.0"
+description = "Matched 1B FineWeb-Edu/IndicCorpV2 hard-vs-linear transition ablation"
+requires-python = ">=3.10"
+dynamic = ["dependencies"]
+
+[tool.setuptools]
+packages = ["p7"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,37 @@
+{
+  "experiment": "P7 hard shift versus centred linear-transition control",
+  "model_parameters_target": 1000000000,
+  "total_training_tokens": 20000000000,
+  "source_train_tokens_each": 10000000000,
+  "eval_sequences_each": 10000,
+  "block_size": 640,
+  "eval_tokens_each": 6400000,
+  "total_packed_tokens_each": 10006400000,
+  "shift_tokens": 10000000000,
+  "hard_arm": {
+    "pre_shift": {"fineweb_edu": 0.5, "indiccorp_v2": 0.5},
+    "post_shift": {"fineweb_edu": 0.8, "indiccorp_v2": 0.2}
+  },
+  "linear_control": {
+    "transition_tokens": 256000000,
+    "transition_start_tokens": 9872000000,
+    "transition_centre_tokens": 10000000000,
+    "transition_end_tokens": 10128000000
+  },
+  "total_sampled_each_arm": {
+    "fineweb_edu": 13000000000,
+    "indiccorp_v2": 7000000000,
+    "fineweb_replay": 3000000000
+  },
+  "recommended_runtime": {
+    "num_processes": 8,
+    "per_device_batch_size": 1,
+    "gradient_accumulation_steps": 25,
+    "global_sequences_per_step": 200,
+    "global_tokens_per_step": 128000,
+    "shift_step": 78125,
+    "linear_transition_start_step": 77125,
+    "linear_transition_end_step": 79125,
+    "total_steps": 156250
+  }
+}

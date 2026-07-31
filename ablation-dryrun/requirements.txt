@@ -1,0 +1,10 @@
+torch>=2.6,<3
+transformers>=4.55,<5
+datasets>=3.6,<5
+accelerate>=1.8,<2
+huggingface_hub>=0.34,<2
+tokenizers>=0.21,<1
+numpy>=1.26,<3
+safetensors>=0.5,<1
+tensorboard>=2.18,<3
+pytest>=8,<10

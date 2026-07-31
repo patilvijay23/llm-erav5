@@ -361,6 +361,10 @@ def main(argv: list[str] | None = None) -> int:
         print("file opened...")
         for i, row in enumerate(rows):
             if i%100000 == 0: print(f"\tloop {i}")
+            if (i+1)%10000000 == 0:
+                print(f"\tstopping at {i}")
+                break
+            
             if args.limit is not None and i >= args.limit:
                 break
             counts["input_rows"] += 1

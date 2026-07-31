@@ -20,6 +20,14 @@
 ```bash
 pip install datasets pandas pyarrow
 python clean_samanantar.py --hf-dataset ai4bharat/samanantar --languages as,bn,gu,hi,kn,ml,mr,or,pa,ta,te --output-dir cleaned_samanantar
+# or IndicCorpV2 monolingual (auto-enables --monolingual; CC-0 on the dataset card)
+python clean_samanantar.py --hf-dataset ai4bharat/IndicCorpV2 --languages as,bn,gu,hi,kn,ml,mr,or,pa,ta,te --output-dir cleaned_indiccorp --license-note "CC-0"
+```
+
+Local monolingual JSONL/CSV with a `text` column:
+
+```bash
+python clean_samanantar.py --monolingual --input /path/to/hi.jsonl --language hi --output-dir cleaned_indiccorp
 ```
 
 For Samanantar v0.3 with LaBSE metadata, add the correct score column:

@@ -316,6 +316,7 @@ def evaluate_monolingual(
 
 
 def main(argv: list[str] | None = None) -> int:
+    print("entering main function...")
     p = argparse.ArgumentParser(description=__doc__)
     source = p.add_mutually_exclusive_group(required=True)
     source.add_argument("--input", type=Path, help="Parquet/CSV/JSONL file or directory")
@@ -355,8 +356,11 @@ def main(argv: list[str] | None = None) -> int:
     output_hashes: list[str] = []
     clean_path = args.output_dir / "cleaned.jsonl"
     reject_path = args.output_dir / "rejected.jsonl"
+    print("args loaded...")
     with clean_path.open("w", encoding="utf-8") as cf, reject_path.open("w", encoding="utf-8") as rf:
+        print("file opened...")
         for i, row in enumerate(rows):
+            if i%100000 == 0: print(f"\tloop {i}")
             if args.limit is not None and i >= args.limit:
                 break
             counts["input_rows"] += 1
@@ -424,6 +428,8 @@ def main(argv: list[str] | None = None) -> int:
                 for r in set(d["reasons"]):
                     reasons[r] += 1
                 rf.write(canonical_json({"row": payload, "reasons": sorted(set(d["reasons"]))}) + "\n")
+    
+    print("loop and file done...")
     script_hash = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
     semantic_filter = "not applicable: monolingual mode"
     if not args.monolingual:

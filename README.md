@@ -15,15 +15,18 @@ The model will be optimised for:
 - Controllable reasoning at low, medium, high and ultra effort.
 - Native understanding and generation across Indic languages.
 
+
+
 ### Training token requirements
 
-120B param model means a minimum of 2.4T tokens as per Chinchilla scaling law. The proposed token budget target in the ERAv5 sessions is 10T-30T range. Hence, the base-model training budget *can be* fixed at 24 trillion tokens, or approximately 200 training tokens per parameter.
+Using the Chinchilla compute-optimal heuristic of approximately 20 training tokens per parameter, a 120B dense model corresponds to a 2.4T-token reference point. This is not a minimum or a guarantee of optimal downstream performance; the proposed 3B token-extension ablation tests whether V5 remains data-limited at that point. The proposed token budget target in the ERAv5 sessions is 10T-30T range. Hence, the base-model training budget *can be* fixed at 24 trillion tokens, or approximately 200 training tokens per parameter.
 
 The course target of 10–30T tokens would be possible only if the scarce lanes could be filled without hiding extreme repetition or unverified generation. At 24T, even a 10% Indic-language lane would require 2.4T tokens. Sangraha reports roughly 251B total tokens, of which only about 64B are verified, while IndicCorpV2 is reported at roughly 21B tokens. After cross-source deduplication, licence filtering and V5 tokenisation, a 24T run would force several passes plus very large synthetic expansion before the model has demonstrated that those extra tokens are useful.
 
 Hence, I'm choosing a 2.4T budget total. A proxy budget ablation is allowed to reject this decision if models remain strongly data-limited at the 20-token-per-parameter point
 
 ### Token accounting
+
 
 | Budget component         | Tokens   | Purpose                                                                  |
 | ------------------------ | -------- | ------------------------------------------------------------------------ |
@@ -43,6 +46,7 @@ Primary capability lanes are mutually exclusive and sum to 100%. Language, prove
 
 An India-First model will require focused India-First datasets, hence **the proposal is to separate Indic data into two lanes: India-first institutional/regional knowledge, and Indic language foundation**. Indic datasets already used or considered in v4 (Sangraha, Samanantar) can generally be considered under the Indic language foundation lane. Supporting a separate India-First lane will require additional data collection, generation, and/or separation from existing general Indic datasets, which may or may not be feasible.
 
+
 | Capability lane                                  | Share    | Full tokens | Main unique-equivalent | Controlled replay | Anneal   | Primary outcome                                                        |
 | ------------------------------------------------ | -------- | ----------- | ---------------------- | ----------------- | -------- | ---------------------------------------------------------------------- |
 | General web and reference                        | **25%**  | **600B**    | 598.8B                 | 0                 | 1.2B     | Broad knowledge and reference use                                      |
@@ -56,6 +60,9 @@ An India-First model will require focused India-First datasets, hence **the prop
 | Long-context learning                            | **6%**   | **144B**    | 110.6B                 | 25B               | 8.4B     | Cross-document and repository-scale dependencies                       |
 | Books, dialogue and date-stamped news            | **4%**   | **96B**     | 79.8B                  | 15B               | 1.2B     | Long-form fluency, dialogue and temporal grounding                     |
 | **Total**                                        | **100%** | **2.400T**  | **2.000T**             | **280B**          | **120B** |                                                                        |
+
+
+
 
 ### Why these proportions
 
@@ -85,27 +92,37 @@ Therefore, most of the 144B agentic allocation must be built rather than collect
 
 **Indic foundation** receives 10%, with an additional 5% **India-first knowledge** lane. This makes India-first capability a structural property of the corpus rather than an instruction-tuning patch applied after English-heavy pretraining.
 
-**Long context** receives 7%, because a model cannot learn long-horizon operation merely by increasing the inference context window. It must train on sequences where information from distant parts of the context is genuinely required.
+**Long context** receives 6%, because a model cannot learn long-horizon operation merely by increasing the inference context window. It must train on sequences where information from distant parts of the context is genuinely required.
 
 ## 3. Inventory map
 
-| Lane         | Candidate inventory                                                                                                                | Supply verdict                                                                                        |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| General web  | FineWeb-Edu, licence-cleared reference pools, Wikipedia and open Common Pile components                                            | Sufficient, but quality, deduplication and English dominance still bind                               |
-| India-first  | India Code, gazettes, Parliament and court material, RBI, SEBI, MOSPI, NCERT, NIOS, NPTEL, state portals, regional books and press | **Starved**; requires targeted collection, OCR, licensing and verified generation                     |
-| Indic        | Sangraha, IndicCorpV2, fully cleaned Samanantar, BPCC/IndicTrans2-family data, licensed books and transcripts                      | 240B is plausible, but verified native supply remains the bottleneck                                  |
-| Code         | The Stack v3/v2, permissive repositories, CommitPack, issues, pull requests, tests, CI logs, docs and executable synthetic code    | Sufficient headline supply; licences, secrets, generated files and repository deduplication are gates |
-| Mathematics  | FineMath, InfiWebMath, OpenWebMath, proof corpora, textbooks and verifier-generated problems                                       | Requires bounded replay and verified generation                                                       |
-| Science      | peS2o, openly licensed papers, textbooks, manuals and standards                                                                    | Rights, extraction quality and citation integrity constrain supply                                    |
-| Reasoning    | Worked proofs, OpenR1-Math-220k, OpenThoughts3-1.2M, filtered reasoning SFT and verifier-generated traces                          | Difficult and long traces require generation plus verification                                        |
-| Agentic      | SWE-Gym, SWE-smith, ToolBench, AgentTrek, AgentTrove, API-Bank, ToolACE, WebLINX and generated environments                        | **Most starved lane**; much must be built rather than collected                                       |
-| Long context | Coherent repositories, books, legal records, standards, papers and multi-document trajectories                                     | Sufficient raw documents, but true dependency-bearing examples are scarce                             |
 
-Dataset names are planning anchors, not automatic approvals. Every quantity must be re-measured after licence filtering, cleaning, deduplication and V5 tokenisation.
+| Lane         | Candidate inventory                                                                                                                |
+| India-first  | India Code, gazettes, Parliament and court material, RBI, SEBI, MOSPI, NCERT, NIOS, NPTEL, state portals, regional books and press |
+| Indic        | Sangraha, IndicCorpV2, fully cleaned Samanantar, BPCC/IndicTrans2-family data, licensed books and transcripts                      |
+| Code         | The Stack v3/v2, permissive repositories, CommitPack, issues, pull requests, tests, CI logs, docs and executable synthetic code    |
+| Mathematics  | FineMath, InfiWebMath, OpenWebMath, proof corpora, textbooks and verifier-generated problems                                       |
+| Science      | peS2o, openly licensed papers, textbooks, manuals and standards                                                                    |
+| Reasoning    | Worked proofs, OpenR1-Math-220k, OpenThoughts3-1.2M, filtered reasoning SFT and verifier-generated traces                          |
+| Agentic      | SWE-Gym, SWE-smith, ToolBench, AgentTrek, AgentTrove, API-Bank, ToolACE, WebLINX and generated environments                        |
+| Long context | Coherent repositories, books, legal records, standards, papers and multi-document trajectories                                     |
+
+### Suply verdict
+| Lane           | Target |                                 Known headline supply | Defensible conclusion                                                                |
+| -------------- | -----: | ----------------------------------------------------: | ------------------------------------------------------------------------------------ |
+| General        |   600B |                            FineWeb-Edu is much larger | Feasible, but the 240B source-family cap requires at least three source families     |
+| Code           |   576B |                                 Large headline supply | Feasible after licence filtering; no more than 240B can come from one source family  |
+| Verified Indic |    96B | Approximately 64B Sangraha verified + 21B IndicCorpV2 | **At least 11B short before deduplication and filtering; actual gap will be larger** |
+| Mathematics    |   168B |         Roughly tens of billions across named corpora | Requires bounded replay and verified generation                                      |
+| Reasoning      |   192B |    Sample counts known, token supply not yet measured | Zero firm supply credit until V5 tokenization                                        |
+| Agentic        |   144B |        Thousands to hundreds of thousands of examples | Majority must be generated; exact percentage pending trajectory tokenization         |
+| Long context   |   144B |                                Raw documents abundant | Dependency-qualified token supply unmeasured                                         |
+
 
 ## 4. Indic slot: four-tier accounting
 
 The **Indic-language foundation lane is 240B tokens (10% of the run)**. The separate 120B India-first lane is not hidden inside this table.
+
 
 | Indic provenance tier      | Share of Indic lane | Share of full run | Tokens   | Admission rule                                                                                   | Supply consequence                                                                                                |
 | -------------------------- | ------------------- | ----------------- | -------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
@@ -115,6 +132,9 @@ The **Indic-language foundation lane is 240B tokens (10% of the run)**. The sepa
 | Synthetic, non-translation | **25%**             | **2.5%**          | **60B**  | Native, Romanised or code-switched generation with teacher, prompt and verifier lineage          | Generation is explicit and capped; it never counts as verified native text                                        |
 | **Total**                  | **100%**            | **10%**           | **240B** |                                                                                                  |                                                                                                                   |
 
+
+
+
 ### Indic supply gates
 
 - Translated and synthetic records never count as verified native text.
@@ -123,13 +143,17 @@ The **Indic-language foundation lane is 240B tokens (10% of the run)**. The sepa
 - No single teacher may generate more than 25% of the synthetic tier.
 - At least 5% of every priority language’s synthetic allocation receives native-speaker audit before admission.
 
+
+
 ### Language allocation inside the Indic lane
+
 
 | Language group                                                                                                                           | Share   | Tokens    |
 | ---------------------------------------------------------------------------------------------------------------------------------------- | ------- | --------- |
 | Native-script priority languages: Hindi, Bengali, Marathi, Telugu, Tamil, Urdu, Gujarati, Kannada, Malayalam, Odia, Punjabi and Assamese | **80%** | **192B**  |
 | Other scheduled Indian languages                                                                                                         | **12%** | **28.8B** |
 | Genuine Romanised and code-switched Indic                                                                                                | **8%**  | **19.2B** |
+
 
 Language minima do not override quality, licensing, contamination or source-pass gates.
 
@@ -148,6 +172,7 @@ Every exception records the source ID, repeated-token count, manifest hash, prox
 
 OPUS may rank and reject candidates only within **88% of each main-run batch**. The remaining **12% is an always-on capability floor**:
 
+
 | Protected lane            | Minimum batch share |
 | ------------------------- | ------------------- |
 | Indic-language foundation | **7%**              |
@@ -155,6 +180,7 @@ OPUS may rank and reject candidates only within **88% of each main-run batch**. 
 | Explicit reasoning        | **2%**              |
 | Agentic and tool use      | **2%**              |
 | **Total floor**           | **12%**             |
+
 
 The combined India/Indic floor remains **8%**, matching the protected Indic principle used in V4, while reasoning and agentic data receive separate protection. The floor is a lower bound, not the final target.
 
@@ -167,9 +193,12 @@ Selector rules:
 - anneal records remain invisible before cooldown; and
 - benchmark and sealed-evaluation records are never candidates.
 
+
+
 ## 7. Protected anneal reserve
 
 The final **120B tokens (5% of training)** are immutable before cooldown.
+
 
 | Anneal component                           | Reserve share | Tokens    |
 | ------------------------------------------ | ------------- | --------- |
@@ -185,11 +214,14 @@ The final **120B tokens (5% of training)** are immutable before cooldown.
 | Books, dialogue and news                   | **1%**        | **1.2B**  |
 | **Total**                                  | **100%**      | **120B**  |
 
+
 The reserve excludes unverified Indic, unverifiable synthetic reasoning, random long-context concatenation, non-replayable trajectories, unresolved code licences and evaluation-derived prompts.
 
 At least **70% of reserve tokens** require an external signal: tests, proof/answer checker, environment replay, citation validation or native-speaker audit.
 
 ## 8. Curriculum
+
+
 
 ### Phase 1 — General and Indic foundation
 
@@ -197,6 +229,7 @@ At least **70% of reserve tokens** require an external signal: tests, proof/answ
 - **Budget:** 400B unique-equivalent tokens.
 - **Context:** 8K.
 - **Difficulty:** D0 and D1 dominate.
+
 
 | Lane                | Share |
 | ------------------- | ----- |
@@ -211,6 +244,7 @@ At least **70% of reserve tokens** require an external signal: tests, proof/answ
 | Long context        | 3%    |
 | Books/dialogue/news | 7%    |
 
+
 **Objective:** multilingual language modelling, native Indic fluency, broad knowledge, basic programming and mathematical notation. Only short reasoning and atomic tool formats appear. Long reasoning and Tier-A trajectories remain untouched.
 
 ### Phase 2 — Coding, reasoning and tool-use build
@@ -219,6 +253,7 @@ At least **70% of reserve tokens** require an external signal: tests, proof/answ
 - **Budget:** 800B unique-equivalent tokens.
 - **Context:** 8K increasing to 32K.
 - **Difficulty:** D1 and D2 dominate.
+
 
 | Lane                | Share |
 | ------------------- | ----- |
@@ -233,6 +268,7 @@ At least **70% of reserve tokens** require an external signal: tests, proof/answ
 | Long context        | 4%    |
 | Books/dialogue/news | 3%    |
 
+
 **Objective:** executable coding, repository structure, worked reasoning, short multi-step tool use, structured outputs and verification.
 
 ### Phase 3 — Agentic and long-context hardening
@@ -241,6 +277,7 @@ At least **70% of reserve tokens** require an external signal: tests, proof/answ
 - **Budget:** 800B new unique-equivalent tokens plus 280B controlled replay.
 - **Context:** 32K increasing to 128K, with sampled 256K sequences.
 - **Difficulty:** D2 and D3 dominate.
+
 
 | Lane                | Share      |
 | ------------------- | ---------- |
@@ -254,6 +291,7 @@ At least **70% of reserve tokens** require an external signal: tests, proof/answ
 | Agentic             | 6.814815%  |
 | Long context        | 8.481481%  |
 | Books/dialogue/news | 3.962963%  |
+
 
 **Objective:** repository-scale work, browser and terminal operation, failed-call recovery, cross-document synthesis and sustained task state. The replay controller enforces source caps and cannot access the anneal reserve.
 
@@ -273,11 +311,13 @@ The weighted average of Phases 1–3 equals the 2.28T main-run allocation. Addin
 
 Mixtures are never changed in a hard step.
 
+
 | Transition        | Linear blending window |
 | ----------------- | ---------------------- |
 | Phase 1 → Phase 2 | **4B tokens**          |
 | Phase 2 → Phase 3 | **6B tokens**          |
 | Phase 3 → anneal  | **8B tokens**          |
+
 
 Embeddings remain trainable unless a proxy validates freezing.
 
@@ -294,6 +334,7 @@ Monitor global and per-layer gradient norms, token-normalised loss, per-lane val
 
 Difficulty is independent of sequence or reasoning length. Verbosity receives no credit.
 
+
 | Band                         | Target  | Definition                                                          | Concrete example                                                                                       |
 | ---------------------------- | ------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | **D0 — Atomic**              | **25%** | One direct transformation or fact with straightforward verification | Translate a two-sentence vaccination notice into Marathi while preserving dates and dosage numbers     |
@@ -301,9 +342,13 @@ Difficulty is independent of sequence or reasoning length. Verbosity receives no
 | **D2 — Compositional**       | **30%** | Multiple documents, tools or domains with intermediate checking     | Read an RBI circular and transaction log, diagnose a validation error and emit a compliant API payload |
 | **D3 — Long-horizon/expert** | **10%** | Ambiguity, delayed feedback, recovery or proof-level depth          | Investigate a multi-file repository defect, recover from a failed command and produce a passing patch  |
 
+
+
+
 ## 11. Reasoning-effort bands
 
 Reasoning is measured by useful retained solution length, not raw generation length.
+
 
 | Effort     | Target  | Retained reasoning length | Concrete example                                                                                                             |
 | ---------- | ------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
@@ -312,11 +357,13 @@ Reasoning is measured by useful retained solution length, not raw generation len
 | **High**   | **25%** | 513–2,048 tokens          | Trace a failing unit test, isolate the defect, produce a patch and validate it                                               |
 | **Ultra**  | **10%** | 2,049–32,768 tokens       | Complete a repository-and-browser investigation with failed calls, recovery, evidence synthesis and a replayable final state |
 
+
 No more than **2 percentage points of all retained reasoning traces** may exceed 8,192 tokens until a proxy demonstrates value. Every High or Ultra record requires an answer checker, tests, proof verifier, simulator, replayable environment, citation check or independent judge with sampled human audit.
 
 ## 12. Agentic lane
 
 The 144B agentic allocation is divided toward Codex-style work:
+
 
 | Agentic sub-lane                               | Share   | Tokens    |
 | ---------------------------------------------- | ------- | --------- |
@@ -325,6 +372,7 @@ The 144B agentic allocation is divided toward Codex-style work:
 | Browser and GUI operation                      | **10%** | **14.4B** |
 | Terminal, data and operating-system tasks      | **10%** | **14.4B** |
 | Indian public-service and enterprise workflows | **10%** | **14.4B** |
+
 
 A valid trajectory records the objective, plan, tool schema, environment state, model action, observation, updated plan, failures or branches, recovery, final state and verifier result.
 
@@ -342,6 +390,7 @@ Training on tool observations is forbidden because it teaches the model to imita
 
 The 144B long-context lane must contain genuine distant dependencies.
 
+
 | Sequence band | Share   | Tokens    |
 | ------------- | ------- | --------- |
 | 8K–32K        | **40%** | **57.6B** |
@@ -349,9 +398,18 @@ The 144B long-context lane must contain genuine distant dependencies.
 | 64K–128K      | **20%** | **28.8B** |
 | 128K–256K     | **10%** | **14.4B** |
 
+
 Qualifying records include coherent repositories, multi-section legal questions, scientific synthesis across documents and trajectories whose final decision depends on early observations. Each record states why it cannot be solved reliably from a short local window. Random concatenation receives zero long-context credit.
 
 ## Training-stage boundaries
+
+| Stage                       | Inside 2.4T? | Learning signal                                               |
+| --------------------------- | -----------: | ------------------------------------------------------------- |
+| Base pretraining            |          Yes | Full causal next-token loss                                   |
+| Final annealing/midtraining |          Yes | Declare whether full causal loss or selective masking is used |
+| Supervised fine-tuning      |           No | Response-only masking                                         |
+| Reinforcement learning      |           No | Verifiable reward                                             |
+
 
 ### Base pretraining
 
@@ -359,12 +417,16 @@ Qualifying records include coherent repositories, multi-section legal questions,
 - Reasoning-rich documents, worked solutions and proofs.
 - Agentic preparation through repositories, tool schemas, API documentation, issue–patch–test chains and short verified calls.
 
+
+
 ### Annealing and supervised fine-tuning
 
 - Response-only masking.
 - Full multi-step trajectories.
 - Reasoning-effort labels.
 - Heavy use of execution, proof and answer verification.
+
+
 
 ### Reinforcement learning
 
@@ -400,9 +462,12 @@ Each lane reports collected unique, generated unique, replayed and reserve token
 
 ## 15. Proxy experiments
 
+
+
 ### 1B recipe screen
 
 Train a 1B dense decoder for **20B tokens per arm**, preserving the 20-token-per-parameter budget ratio. Use the same tokenizer, optimiser family, packing, context schedule, evaluation cadence and held-out manifests. Run one seed for every arm and rerun the top three with two additional seeds.
+
 
 | Arm    | Change                                                                            | Hypothesis tested                                                       |
 | ------ | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
@@ -414,6 +479,9 @@ Train a 1B dense decoder for **20B tokens per arm**, preserving the 20-token-per
 | **P5** | Move reasoning and agentic allocations into general web and code                  | Do explicit scarce lanes buy measurable capability?                     |
 | **P6** | Spend reserve data proportionally from the start                                  | Is late holdback better than early exposure?                            |
 | **P7** | Use hard mixture shifts instead of warm transitions                               | Are gradual transitions required for stability?                         |
+
+
+
 
 ### 3B confirmation
 
@@ -434,6 +502,8 @@ P1 is accepted only when:
 - transition loss stays at or below **1.15×** baseline and recovers within 500 optimiser steps; and
 - every result reports seed spread, token-normalised loss and exact manifest hashes.
 
+
+
 ### Budget decision rule
 
 The 2.4T budget hypothesis is rejected or escalated for review if extending the 3B winner from 60B to 90B tokens produces:
@@ -446,6 +516,7 @@ If the extension does not clear those gates, the 2.4T budget remains the recomme
 
 ## 16. Evaluation pillars
 
+
 | Pillar            | Core measurements                                                                                                                           |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | Coding            | HumanEval+/MBPP+, LiveCodeBench, sealed repository tasks, patch correctness, test pass rate and regression rate                             |
@@ -454,6 +525,7 @@ If the extension does not clear those gates, the 2.4T budget remains the recomme
 | India/Indic       | Per-language perplexity, native generation, translation, code-switching, Indian knowledge and native-speaker evaluation                     |
 | Long context      | RULER/LongBench-style tests, repository dependencies, recall by position, 256K completion and an 8K-truncation comparison                   |
 | General knowledge | Held-out web/reference perplexity and broad knowledge evaluations                                                                           |
+
 
 No priority Indic language is hidden inside an aggregate score. Evaluation manifests are sealed before data collection and never enter training.
 
@@ -492,3 +564,4 @@ V5 will train a **120B dense India-first model on a provisional 2.4T-token curri
 - AgentTrek: [https://agenttrek.github.io/](https://agenttrek.github.io/)
 - LongAlign: [https://arxiv.org/abs/2401.18058](https://arxiv.org/abs/2401.18058)
 - ProLong: [https://arxiv.org/abs/2410.02660](https://arxiv.org/abs/2410.02660)
+

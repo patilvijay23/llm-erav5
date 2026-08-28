@@ -61,9 +61,19 @@ Reference validation run after 100 steps:
 
 Both losses fall from roughly `ln(512)`, but the `t+2` head remains higher. The notebook uses an online two-state Markov source so the difference is interpretable: one-step conditional entropy is **0.3251 nats**, while two-step conditional entropy is **0.4714 nats**. Predicting `t+2` therefore carries more irreducible uncertainty than predicting `t+1`, so its loss settles higher.
 
+<b>Colab notebook rerun with 1000 steps:</b>
+
+```json
+"part2": {
+    "loss_t1": 0.3183801770210266,
+    "loss_t2": 0.46480923891067505,
+    "loss_sum": 0.7831894159317017,
+    "loss_gap_t2_minus_t1": 0.14642906188964844
+```
+
 ## Run instructions
 
 Open `session9_loss_harness.ipynb` in Google Colab and run **Runtime → Run all**. A GPU runtime is recommended for the assignment's peak-memory measurement, but the notebook also has a CPU measurement fallback. The final cell prints a Markdown-ready submission summary and writes `session9_results.json`.
 
-
-
+### Note
+Notebook was uploaded to colab, run on free tier T4 and then downloaded again to be committed to the git repo.

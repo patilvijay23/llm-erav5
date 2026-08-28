@@ -1,0 +1,44 @@
+{
+  "configuration": {
+    "vocab_size": 512,
+    "d_model": 64,
+    "device": "cuda"
+  },
+  "part1": {
+    "shape_tokens": [
+      3,
+      8
+    ],
+    "shape_hidden": [
+      3,
+      8,
+      64
+    ],
+    "shape_logits": [
+      3,
+      8,
+      512
+    ],
+    "shift_verified": true,
+    "padding_contributors_before": 21,
+    "padding_contributors_after": 16,
+    "boundary_loss_before": 6.23751974105835,
+    "boundary_loss_after": 6.2379350662231445,
+    "untrained_loss": 6.238751411437988,
+    "untrained_perplexity": 512.2185612721936,
+    "ppl_over_vocab": 1.0004268774847531,
+    "untied_total_params": 90496,
+    "tied_total_params": 57728,
+    "saved_by_tying": 32768,
+    "memory_backend": "CUDA max_memory_allocated (increment above prepared inputs/head)",
+    "ordinary_peak_mib": 256.0009765625,
+    "chunked_peak_mib": 17.25146484375,
+    "ordinary_over_chunked_ratio": 14.839376185219779
+  },
+  "part2": {
+    "loss_t1": 0.3183801770210266,
+    "loss_t2": 0.46480923891067505,
+    "loss_sum": 0.7831894159317017,
+    "loss_gap_t2_minus_t1": 0.14642906188964844
+  }
+}

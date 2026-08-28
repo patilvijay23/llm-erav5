@@ -27,7 +27,7 @@ The notebook is deterministic (`seed=42`), runs top-to-bottom, and uses a tiny c
   - Loss before boundary mask: **6.237519**
   - Loss after boundary mask: **6.237935**
   - Contributors: **14 -> 13**
-  - The loss can move either direction. The correctness criterion is that the artificial cross-document target no longer contributes.
+  - The masked boundary token happened to have loss `6.232126`, slightly below the original mean, so removing it makes the remaining mean increase slightly; the important point is that the artificial cross-document prediction no longer contributes.
 5. **Perplexity sanity check**
   - Untrained CE: **6.238752 nats**
   - Untrained perplexity: **512.22**
@@ -36,12 +36,14 @@ The notebook is deterministic (`seed=42`), runs top-to-bottom, and uses a tiny c
 6. **Tied vs. untied output head**
   - Configuration: `V=512`, `D=64`
   - Untied total parameters: **90,496**
+  - Untied output head: **32,768**
   - Tied total parameters: **57,728**
+  - Tied output head: **0**
   - Saving: **32,768 = V × D** parameters.
 7. **Ordinary vs. chunked cross-entropy peak memory**
   - Ordinary peak incremental memory: **263.10 MiB**
-  - Chunked peak incremental memory: **31.50 MiB**
-  - Ratio: **8.35x** ordinary/chunked on the validated CPU reference run.
+  - Chunked peak incremental memory: **17.25 MiB**
+  - Ratio: **14.84x** ordinary/chunked on the validated CPU reference run.
   - Before reporting memory, the notebook asserts that ordinary and chunked CE match in both **loss and gradients**.
   - On CUDA, the notebook automatically uses `torch.cuda.max_memory_allocated()`; on CPU it uses isolated subprocess RSS sampling.
 
@@ -53,15 +55,7 @@ A second output head shares the same causal trunk and predicts two positions ahe
 
 `L_total = L_t+1 + L_t+2`
 
-Reference validation run after 100 steps:
-
-- `t+1` loss: **0.564501**
-- `t+2` loss: **0.617737**
-- sum: **1.182239**
-
-Both losses fall from roughly `ln(512)`, but the `t+2` head remains higher. The notebook uses an online two-state Markov source so the difference is interpretable: one-step conditional entropy is **0.3251 nats**, while two-step conditional entropy is **0.4714 nats**. Predicting `t+2` therefore carries more irreducible uncertainty than predicting `t+1`, so its loss settles higher.
-
-<b>Colab notebook rerun with 1000 steps:</b>
+Reference validation run after 1000 steps:
 
 ```json
 "part2": {
@@ -71,9 +65,12 @@ Both losses fall from roughly `ln(512)`, but the `t+2` head remains higher. The 
     "loss_gap_t2_minus_t1": 0.14642906188964844
 ```
 
+Initially both heads are near `ln(V)` and small optimization fluctuations can put either one slightly higher. Once the model learns the process, the `t+2` loss settles above the `t+1` loss because the two-step target has higher conditional entropy.
+
 ## Run instructions
 
 Open `session9_loss_harness.ipynb` in Google Colab and run **Runtime → Run all**. A GPU runtime is recommended for the assignment's peak-memory measurement, but the notebook also has a CPU measurement fallback. The final cell prints a Markdown-ready submission summary and writes `session9_results.json`.
 
 ### Note
+
 Notebook was uploaded to colab, run on free tier T4 and then downloaded again to be committed to the git repo.

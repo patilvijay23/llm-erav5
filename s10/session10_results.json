@@ -1,0 +1,104 @@
+{
+  "configuration": {
+    "seed": 42,
+    "device": "cuda",
+    "hardware": "Tesla T4",
+    "vocab_size": 16,
+    "d_model": 32,
+    "parameters": 11680
+  },
+  "tensor_shapes": {
+    "tokens": [
+      3,
+      8
+    ],
+    "targets": [
+      3,
+      8
+    ],
+    "embedded": [
+      3,
+      8,
+      32
+    ],
+    "padding_mask": [
+      3,
+      8
+    ],
+    "causal_mask": [
+      8,
+      8
+    ],
+    "hidden": [
+      3,
+      8,
+      32
+    ],
+    "logits": [
+      3,
+      8,
+      16
+    ],
+    "valid": [
+      3,
+      8
+    ],
+    "flat_logits": [
+      18,
+      16
+    ],
+    "flat_targets": [
+      18
+    ],
+    "loss": []
+  },
+  "gradient_check": {
+    "weight": "output_head.weight[3,20]",
+    "epsilon": 1e-05,
+    "finite_difference": -0.3074262541868933,
+    "backward": -0.3074262541825758,
+    "absolute_error": 4.31749080931354e-12,
+    "relative_error": 1.4043988600757025e-11
+  },
+  "accumulation": {
+    "microbatch_valid_tokens": [
+      32,
+      32,
+      8
+    ],
+    "session_example_correct": 2.6,
+    "session_example_wrong": 3.0,
+    "session_example_percent_error": 15.384615384615374,
+    "final_correct_eval_loss": 0.727112266752455,
+    "final_wrong_eval_loss": 0.9129650327894423,
+    "final_wrong_minus_correct": 0.1858527660369873
+  },
+  "grad_norm_early_warning": {
+    "stress_step": 12,
+    "loss_at_stress": 0.37541237473487854,
+    "grad_norm_at_stress": 98.03344654058124,
+    "loss_next_step": 1.8169939517974854,
+    "grad_norm_next_step": 2.6959183606314827
+  },
+  "mfu": {
+    "tokens_per_second": 16971.808828441423,
+    "peak_flops_per_second": 8100000000000.0,
+    "peak_source": "approx published FP32 peak for T4",
+    "achieved_flops_per_second_6N": 1189384362.6971748,
+    "mfu": 0.00014683757564162652,
+    "mfu_percent": 0.014683757564162653,
+    "distance_to_40_percentage_points": 39.98531624243584
+  },
+  "float_0_1": {
+    "fp32_bits": "00111101110011001100110011001101",
+    "fp32_hex": "0x3DCCCCCD",
+    "fp32_value": 0.10000000149011612,
+    "bf16_bits": "0011110111001101",
+    "bf16_hex": "0x3DCD",
+    "bf16_value": 0.10009765625,
+    "fp8_e4m3_bits": "00011101",
+    "fp8_e4m3_hex": "0x1D",
+    "fp8_e4m3_value": 0.1015625,
+    "training_choice": "bf16 on supported training hardware"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "cosine_best_peak_lr": 0.0016,
+  "wsd_best_peak_lr": 0.0008,
+  "cosine_eval_loss_at_step_200": 0.09294281667098403,
+  "wsd_eval_loss_at_step_200": 0.10149142052978277,
+  "model_to_keep": "cosine"
+}

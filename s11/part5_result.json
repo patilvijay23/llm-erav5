@@ -1,0 +1,23 @@
+{
+  "best_by_width": {
+    "256": {
+      "width": 256,
+      "learning_rate": 0.0064,
+      "eval_loss": 0.2205106671899557
+    },
+    "512": {
+      "width": 512,
+      "learning_rate": 0.0016,
+      "eval_loss": 0.20521576330065727
+    },
+    "1024": {
+      "width": 1024,
+      "learning_rate": 0.0008,
+      "eval_loss": 0.17589451000094414
+    }
+  },
+  "power_law_slope": -1.4999999999999993,
+  "recommended_lr_width_4096": 8.908987181403446e-05,
+  "confidence": "moderate",
+  "edge_minima_count": 0
+}

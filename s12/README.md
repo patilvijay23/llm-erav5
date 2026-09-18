@@ -1,5 +1,9 @@
 # Session 12 — 32 Virtual GPUs: ZeRO-0, ZeRO-1, ZeRO-2, ZeRO-3
 
+# My shortest summary of s12 is:
+
+> **ZeRO removes GPU memory redundancy one category at a time: optimizer state, then gradients, then parameters. Each step reduces persistent memory. ZeRO-1 and ZeRO-2 get most of that saving without increasing the data-parallel communication class; ZeRO-3 goes further but has to fetch sharded parameters when layers execute, increasing communication requirement.**
+
 ## Files
 
 - `session12_virtual_zero_32gpu-colab.ipynb` — Google Colab run notebook
@@ -259,9 +263,7 @@ It does **not** measure:
 | 30B state/rank @ 32   | 447.0 GiB   | 122.2 GiB   | 68.1 GiB    | 14.0 GiB    |
 
 
-My shortest summary is:
 
-> **ZeRO removes redundancy one category at a time: optimizer state, then gradients, then parameters. Each step reduces persistent memory. ZeRO-1 and ZeRO-2 get most of that saving without increasing the data-parallel communication class; ZeRO-3 goes further but has to fetch sharded parameters when layers execute.**
 
 ---
 

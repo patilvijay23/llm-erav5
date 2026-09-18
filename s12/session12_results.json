@@ -1,0 +1,59 @@
+{
+  "world_size": 32,
+  "physical_device": "cuda",
+  "hardware": "Tesla T4",
+  "demo_model_parameters": 6792,
+  "local_batch": 8,
+  "global_batch": 256,
+  "mean_local_loss_before_update": 2.0744453594088554,
+  "global_grad_norm": 0.15712089836597443,
+  "memory": [
+    {
+      "stage": "ZeRO-0 / DP",
+      "bytes_per_param_rank": 16.0,
+      "demo_KiB_per_rank": 106.125,
+      "30B_GiB_per_rank": 447.0348358154297,
+      "optimizer_update_params_per_rank": 6792,
+      "cluster_update_redundancy_x": 32.0,
+      "communication_P_per_step": 2.0
+    },
+    {
+      "stage": "ZeRO-1",
+      "bytes_per_param_rank": 4.375,
+      "demo_KiB_per_rank": 29.0185546875,
+      "30B_GiB_per_rank": 122.23608791828156,
+      "optimizer_update_params_per_rank": 213,
+      "cluster_update_redundancy_x": 1.0,
+      "communication_P_per_step": 2.0
+    },
+    {
+      "stage": "ZeRO-2",
+      "bytes_per_param_rank": 2.4375,
+      "demo_KiB_per_rank": 16.16748046875,
+      "30B_GiB_per_rank": 68.10296326875687,
+      "optimizer_update_params_per_rank": 213,
+      "cluster_update_redundancy_x": 1.0,
+      "communication_P_per_step": 2.0
+    },
+    {
+      "stage": "ZeRO-3",
+      "bytes_per_param_rank": 0.5,
+      "demo_KiB_per_rank": 3.31640625,
+      "30B_GiB_per_rank": 13.969838619232178,
+      "optimizer_update_params_per_rank": 213,
+      "cluster_update_redundancy_x": 1.0,
+      "communication_P_per_step": 3.0
+    }
+  ],
+  "correctness": {
+    "max_diff_zero0_zero1": 0.0,
+    "max_diff_zero0_zero2": 0.0,
+    "max_diff_zero0_zero3": 0.0,
+    "post_update_losses": [
+      2.1308579444885254,
+      2.1308579444885254,
+      2.1308579444885254,
+      2.1308579444885254
+    ]
+  }
+}

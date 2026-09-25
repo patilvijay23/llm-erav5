@@ -1,0 +1,7 @@
+torch
+numpy
+matplotlib
+datasets>=3.0
+tokenizers>=0.20
+transformers>=4.45
+flash-tokenizer>=0.1

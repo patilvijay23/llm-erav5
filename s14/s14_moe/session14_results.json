@@ -1,0 +1,67 @@
+{
+  "hardware": "Tesla T4",
+  "precision": "torch.float16",
+  "dataset": "allenai/peS2o v2",
+  "tokenizer": "8192 WordPiece vocabulary + FlashTokenizer encoding",
+  "dense_parameters": 19867008,
+  "moe_total_parameters": 48196992,
+  "moe_active_parameters_approx": 29322624,
+  "n_experts": 4,
+  "top_k": 2,
+  "aux_alpha": 0.001,
+  "z_alpha": 0.001,
+  "dense_initial_val_loss": 9.229876184463501,
+  "dense_final_val_loss": 0.42835237391991543,
+  "conversion_audit": {
+    "dense_loss": 0.00019579162471927702,
+    "moe_loss": 0.00019579185754992068,
+    "loss_diff": 2.3283064365386963e-10,
+    "max_logit_diff": 4.1961669921875e-05,
+    "mean_layer_load": [
+      0.3179524838924408,
+      0.1089681014418602,
+      0.2823079526424408,
+      0.290771484375
+    ]
+  },
+  "moe_start_eval": {
+    "lm_loss": 0.4283455515818787,
+    "balance_raw": 1.0126826107501983,
+    "z_raw": 1.9187454402446746,
+    "mean_load": [
+      0.31878459453582764,
+      0.11038360744714737,
+      0.28226929903030396,
+      0.28856250643730164
+    ],
+    "mean_maxvio": 0.9764872193336487,
+    "max_maxvio": 1.0,
+    "dead_expert_slots": 14
+  },
+  "moe_final_eval": {
+    "lm_loss": 0.3087788899298175,
+    "balance_raw": 1.0402257204055787,
+    "z_raw": 0.031434829160571096,
+    "mean_load": [
+      0.2326507568359375,
+      0.23729349672794342,
+      0.25323131680488586,
+      0.2768244445323944
+    ],
+    "mean_maxvio": 0.6716471314430237,
+    "max_maxvio": 1.0,
+    "dead_expert_slots": 5
+  },
+  "dense_tokens": 5001216,
+  "dense_token_s": 50402.17233360343,
+  "dense_peak_GiB": 1.2897605895996094,
+  "moe_tokens": 5001216,
+  "moe_token_s": 29434.485671194045,
+  "moe_peak_GiB": 2.4901208877563477,
+  "dense_first100_loss": 3.058409263996873,
+  "dense_last100_loss": 0.44107188083231447,
+  "moe_first100_loss": 0.5130943949217908,
+  "moe_last100_loss": 0.3014712097658776,
+  "expert_divergence_before": 0.0,
+  "expert_divergence_after": 0.0035076246939651254
+}
